@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+  --background: #1d1c1cfa;
+  --foreground: #ededed;
+  /* dark native controls: select popups, number spinners, scrollbars */
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  background: #1d1c1c;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
