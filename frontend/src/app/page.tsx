@@ -20,6 +20,9 @@ type DistState = {
   unit: TimeUnit;
 };
 
+// C# backend (see /backend); override with NEXT_PUBLIC_API_URL in .env.local
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000";
+
 type Step = { symbol: string; formula: string; substitution: string; value: string; unit: string };
 type ApiResult =
   | { ok: true; model: string; unit: string; steps: Step[] }
@@ -276,7 +279,7 @@ export default function Home() {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/calculate", {
+      const res = await fetch(`${API_URL}/api/calculate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -290,7 +293,7 @@ export default function Home() {
       if (data.ok) setResult(data);
       else setError(data.error);
     } catch {
-      setError("Could not reach the server.");
+      setError(`Could not reach the server at ${API_URL}. Is the C# backend running?`);
     } finally {
       setLoading(false);
     }
